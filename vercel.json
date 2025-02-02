@@ -1,25 +1,26 @@
 {
-    "builds": [
-      {
-        "src": "huggingface-backend/app.js",
-        "use": "@vercel/node"
-      },
-      {
-        "src": "huggingface-frontend/package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "dist"
-        }
+  "version": 2,
+  "builds": [
+    {
+      "src": "huggingface-backend/app.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "huggingface-frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
       }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "huggingface-backend/app.js"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "huggingface-frontend/dist/$1"
-      }
-    ]
-  }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "huggingface-backend/app.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "huggingface-frontend/dist/$1"
+    }
+  ]
+}
