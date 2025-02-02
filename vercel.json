@@ -1,16 +1,25 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "package.json",
-        "use": "@vercel/static-build",
-        "config": { "distDir": "build" }
+  "builds": [
+    {
+      "src": "huggingface-backend/app.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "huggingface-frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist" // Sesuaikan dengan direktori output Vite
       }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/"
-      }
-    ]
-  }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "huggingface-backend/app.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "huggingface-frontend/dist/$1"
+    }
+  ]
+}
