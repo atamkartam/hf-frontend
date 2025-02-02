@@ -8,7 +8,7 @@
       "src": "huggingface-frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist" // Sesuaikan dengan direktori output Vite
+        "distDir": "dist" 
       }
     }
   ],
