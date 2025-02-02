@@ -24,7 +24,6 @@ dist-ssr
 *.sw?
 
 node_modules/
-services/
 dashboard.css
 login.module.css
 penting.css
