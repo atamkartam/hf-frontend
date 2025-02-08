@@ -67,30 +67,35 @@ const ImageDetail = ({ isSidebarOpen }) => {
   };
 
   // Fungsi untuk menghapus gambar
-  const handleDelete = async (id) => {
-    try {
-      const token = localStorage.getItem("token");
+  // Fungsi untuk menghapus gambar
+const handleDelete = async () => {
+  if (!imageToDelete) return; // Pastikan ada gambar yang dipilih untuk dihapus
 
-      // Mengirim permintaan DELETE ke API untuk menghapus gambar
-      await api.delete(`/text-to-image/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+  try {
+    const token = localStorage.getItem("token");
 
-      // Menghapus gambar dari state
-      const updatedImages = images.filter((img) => img.id !== id);
-      setImages(updatedImages);
+    // Menghapus gambar dari database melalui API
+    await api.delete(`/text-to-image/${imageToDelete}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
-      // Redirect ke dashboard jika tidak ada gambar tersisa
-      if (updatedImages.length === 0) {
-        window.location.href = "/dashboard";
-      }
-    } catch (err) {
-      // Menampilkan pesan error jika gagal menghapus
-      setError("Failed to delete the image.");
-    } finally {
-      setDeletePopupVisible(false);
+    // Menghapus gambar dari state lokal
+    const updatedImages = images.filter((img) => img.id !== imageToDelete);
+    setImages(updatedImages);
+
+    // Reset state setelah penghapusan berhasil
+    setImageToDelete(null);
+    setDeletePopupVisible(false);
+
+    // Redirect ke dashboard jika tidak ada gambar tersisa
+    if (updatedImages.length === 0) {
+      window.location.href = "/dashboard";
     }
-  };
+  } catch (err) {
+    setError("Failed to delete the image.");
+  }
+};
+
 
   // Fungsi untuk mengedit prompt gambar
   const handleEdit = async (id) => {
@@ -222,8 +227,10 @@ const ImageDetail = ({ isSidebarOpen }) => {
             Cancel
           </button>
           <button className="delete-btn" onClick={handleDelete}>
-            Delete
-          </button>
+  Delete
+</button>
+
+
         </div>
       </div>
     </div>

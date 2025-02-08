@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, // Menggunakan import.meta.env untuk Vite
+  baseURL: "http://localhost:5000/api", // Sesuaikan dengan URL backend Anda
 });
 
 export default api;

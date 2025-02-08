@@ -580,6 +580,27 @@
   .register-card__link a:hover {
     text-decoration: underline;
   }
+
+  .register-form__error{
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: #e53e3e;
+    font-size: 0.9rem;
+  }
+
+  .login-error-message{
+    margin-top: 0.5rem;
+    font-weight: bold;
+    color: #e53e3e;
+    font-size: 0.9rem;
+  }
+
+  .register-form__success{
+    margin-top: 0.5rem;
+      font-weight: bold;
+      color: #38a169;
+      font-size: 0.9rem;
+    }
   
   /* Login Page */
   .login-page {

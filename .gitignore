@@ -24,11 +24,11 @@ dist-ssr
 *.sw?
 
 node_modules/
+dist/
 dashboard.css
 login.module.css
 penting.css
 register.css
 .env
 .gitattributes
-login.module.css
 LandingPage.jsx

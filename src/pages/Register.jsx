@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/index.css";
+import api from "../services/api";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -8,20 +9,27 @@ const Register = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Fungsi untuk menangani proses registrasi
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Simulasi API call untuk registrasi
-      // Ganti dengan `await api.post` jika API sudah disiapkan
-      console.log("Submitted:", { name, email, password });
-
-      // Menampilkan pesan sukses
-      setSuccess("Registration successful! Please check your email for verification.");
-      setError("");
+      console.log("Sending data:", { name, email, password }); // Log data yang dikirim
+      const response = await api.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
+  
+      if (response.data.message) {
+        setSuccess(response.data.message);
+        setError("");
+      }
     } catch (err) {
-      // Menampilkan pesan error jika registrasi gagal
-      setError("Registration failed. Please try again.");
+      console.error("Registration error:", err.response ? err.response.data : err.message); // Log detail error
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Registration failed. Please try again.");
+      }
       setSuccess("");
     }
   };

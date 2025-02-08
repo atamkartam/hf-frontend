@@ -9,20 +9,13 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Fungsi untuk menangani proses login
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Mengirim permintaan login ke server
       const response = await api.post("/auth/login", { email, password });
-
-      // Menyimpan token di localStorage (perhatikan bahwa ini tidak aman untuk produksi)
       localStorage.setItem("token", response.data.token);
-
-      // Mengarahkan pengguna ke dashboard setelah login berhasil
       navigate("/dashboard");
     } catch (err) {
-      // Menampilkan pesan error jika login gagal
       setError(err.response?.data?.message || "Login gagal. Coba lagi.");
     }
   };
@@ -34,7 +27,8 @@ const Login = () => {
         <p className="login-subtitle">Please login to your account</p>
         <form onSubmit={handleLogin} className="login-form">
           <div className="login-form-group">
-          <label htmlFor="email" className="bold-label">Email</label>
+          <label htmlFor="password" className="bold-label">Email</label>
+            
             <input
               type="email"
               id="email"
